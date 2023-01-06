@@ -71,7 +71,7 @@ def trainer_controller_with_start_learning_mocks(basic_trainer_controller):
 
 
 def test_start_learning_trains_forever_if_no_train_model(
-    trainer_controller_with_start_learning_mocks
+    trainer_controller_with_start_learning_mocks,
 ):
     tc, trainer_mock = trainer_controller_with_start_learning_mocks
     tc.train_model = False
@@ -88,7 +88,7 @@ def test_start_learning_trains_forever_if_no_train_model(
 
 
 def test_start_learning_trains_until_max_steps_then_saves(
-    trainer_controller_with_start_learning_mocks
+    trainer_controller_with_start_learning_mocks,
 ):
     tc, trainer_mock = trainer_controller_with_start_learning_mocks
 
@@ -120,7 +120,7 @@ def trainer_controller_with_take_step_mocks(basic_trainer_controller):
 
 
 def test_advance_adds_experiences_to_trainer_and_trains(
-    trainer_controller_with_take_step_mocks
+    trainer_controller_with_take_step_mocks,
 ):
     tc, trainer_mock = trainer_controller_with_take_step_mocks
 
@@ -136,4 +136,4 @@ def test_advance_adds_experiences_to_trainer_and_trains(
     env_mock.get_steps.assert_called_once()
     env_mock.process_steps.assert_called_once()
     # May have been called many times due to thread
-    trainer_mock.advance.call_count > 0
+    # assert trainer_mock.advance.call_count > 0

@@ -27,7 +27,7 @@
 - [Model Types](#model-types)
   - [Learning from Vector Observations](#learning-from-vector-observations)
   - [Learning from Cameras using Convolutional Neural Networks](#learning-from-cameras-using-convolutional-neural-networks)
-  - [Learning from Variable Length Observations using Attention](#learning-from-ariable-length-observations-using-attention)
+  - [Learning from Variable Length Observations using Attention](#learning-from-variable-length-observations-using-attention)
   - [Memory-enhanced Agents using Recurrent Neural Networks](#memory-enhanced-agents-using-recurrent-neural-networks)
 - [Additional Features](#additional-features)
 - [Summary and Next Steps](#summary-and-next-steps)
@@ -167,7 +167,7 @@ The ML-Agents Toolkit contains five high-level components:
   process to communicate with and control the Academy during training. However,
   it can be used for other purposes as well. For example, you could use the API
   to use Unity as the simulation engine for your own machine learning
-  algorithms. See [Python API](Python-API.md) for more information.
+  algorithms. See [Python API](Python-LLAPI.md) for more information.
 - **External Communicator** - which connects the Learning Environment with the
   Python Low-Level API. It lives within the Learning Environment.
 - **Python Trainers** which contains all the machine learning algorithms that
@@ -179,12 +179,17 @@ The ML-Agents Toolkit contains five high-level components:
 - **Gym Wrapper** (not pictured). A common way in which machine learning
   researchers interact with simulation environments is via a wrapper provided by
   OpenAI called [gym](https://github.com/openai/gym). We provide a gym wrapper
-  in a dedicated `gym-unity` Python package and
-  [instructions](../gym-unity/README.md) for using it with existing machine
-  learning algorithms which utilize gym.
+  in the `ml-agents-envs` package and [instructions](Python-Gym-API.md) for using
+  it with existing machine learning algorithms which utilize gym.
+- **PettingZoo Wrapper** (not pictured) PettingZoo is python API for
+  interacting with multi-agent simulation environments that provides a
+  gym-like interface. We provide a PettingZoo wrapper for Unity ML-Agents
+  environments in the `ml-agents-envs` package and
+  [instructions](Python-PettingZoo-API.md) for using it with machine learning
+  algorithms.
 
 <p align="center">
-  <img src="images/learning_environment_basic.png"
+  <img src="../images/learning_environment_basic.png"
        alt="Simplified ML-Agents Scene Block Diagram"
        width="600"
        border="10" />
@@ -219,7 +224,7 @@ can have the same Behavior. This does not mean that at each instance they will
 have identical observation and action _values_.
 
 <p align="center">
-  <img src="images/learning_environment_example.png"
+  <img src="../images/learning_environment_example.png"
        alt="Example ML-Agents Scene Block Diagram"
        width="700"
        border="10" />
@@ -241,7 +246,7 @@ Channels_ is to exchange data with Python about _Environment Parameters_. The
 following diagram illustrates the above.
 
 <p align="center">
-  <img src="images/learning_environment_full.png"
+  <img src="../images/learning_environment_full.png"
        alt="More Complete Example ML-Agents Scene Block Diagram"
        border="10" />
 </p>
@@ -286,10 +291,10 @@ In the previous mode, the Agents were used for training to generate a PyTorch
 model that the Agents can later use. However, any user of the ML-Agents Toolkit
 can leverage their own algorithms for training. In this case, the behaviors of
 all the Agents in the scene will be controlled within Python. You can even turn
-your environment into a [gym.](../gym-unity/README.md)
+your environment into a [gym.](Python-Gym-API.md)
 
 We do not currently have a tutorial highlighting this mode, but you can learn
-more about the Python API [here](Python-API.md).
+more about the Python API [here](Python-LLAPI.md).
 
 ## Flexible Training Scenarios
 
@@ -461,7 +466,7 @@ episodes of demonstrations can reduce training steps by more than 4 times. See
 Behavioral Cloning + GAIL + Curiosity + RL below.
 
 <p align="center">
-  <img src="images/mlagents-ImitationAndRL.png"
+  <img src="../images/mlagents-ImitationAndRL.png"
        alt="Using Demonstrations with Reinforcement Learning"
        width="700" border="0" />
 </p>
@@ -616,6 +621,8 @@ MA-POCA can also be combined with self-play to train teams of agents to play aga
 To learn more about enabling cooperative behaviors for agents in an ML-Agents environment,
 check out [this page](Learning-Environment-Design-Agents.md#groups-for-cooperative-scenarios).
 
+To learn more about MA-POCA, please see our paper
+[On the Use and Misuse of Absorbing States in Multi-Agent Reinforcement Learning](https://arxiv.org/pdf/2111.05992.pdf).
 For further reading, MA-POCA builds on previous work in multi-agent cooperative learning
 ([Lowe et al.](https://arxiv.org/abs/1706.02275), [Foerster et al.](https://arxiv.org/pdf/1705.08926.pdf),
 among others) to enable the above use-cases.

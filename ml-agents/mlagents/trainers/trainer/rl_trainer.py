@@ -14,17 +14,14 @@ from mlagents.trainers.policy.checkpoint_manager import (
 from mlagents_envs.logging_util import get_logger
 from mlagents_envs.timers import timed
 from mlagents.trainers.optimizer import Optimizer
+from mlagents.trainers.optimizer.torch_optimizer import TorchOptimizer
 from mlagents.trainers.buffer import AgentBuffer, BufferKey
 from mlagents.trainers.trainer import Trainer
-from mlagents.trainers.torch.components.reward_providers.base_reward_provider import (
+from mlagents.trainers.torch_entities.components.reward_providers.base_reward_provider import (
     BaseRewardProvider,
 )
 from mlagents_envs.timers import hierarchical_timer
-from mlagents_envs.base_env import BehaviorSpec
-from mlagents.trainers.policy.policy import Policy
-from mlagents.trainers.policy.torch_policy import TorchPolicy
 from mlagents.trainers.model_saver.torch_model_saver import TorchModelSaver
-from mlagents.trainers.behavior_id_utils import BehaviorIdentifiers
 from mlagents.trainers.agent_processor import AgentManagerQueue
 from mlagents.trainers.trajectory import Trajectory
 from mlagents.trainers.settings import TrainerSettings
@@ -110,20 +107,10 @@ class RLTrainer(Trainer):
         """
         return False
 
-    def create_policy(
-        self,
-        parsed_behavior_id: BehaviorIdentifiers,
-        behavior_spec: BehaviorSpec,
-        create_graph: bool = False,
-    ) -> Policy:
-        return self.create_torch_policy(parsed_behavior_id, behavior_spec)
-
     @abc.abstractmethod
-    def create_torch_policy(
-        self, parsed_behavior_id: BehaviorIdentifiers, behavior_spec: BehaviorSpec
-    ) -> TorchPolicy:
+    def create_optimizer(self) -> TorchOptimizer:
         """
-        Create a Policy object that uses the PyTorch backend.
+        Creates an Optimizer object
         """
         pass
 
@@ -137,7 +124,7 @@ class RLTrainer(Trainer):
         return model_saver
 
     def _policy_mean_reward(self) -> Optional[float]:
-        """ Returns the mean episode reward for the current policy. """
+        """Returns the mean episode reward for the current policy."""
         rewards = self.cumulative_returns_since_policy_update
         if len(rewards) == 0:
             return None

@@ -22,7 +22,9 @@ MATCH_ANY = re.compile(r"(?s).*")
 # To allow everything in the file (effectively skipping it), use MATCH_ANY for the value
 ALLOW_LIST = {
     # Previous release table
-    "README.md": re.compile(r"\*\*(Verified Package ([0-9]\.?)*|Release [0-9]+)\*\*"),
+    "docs/Python-PettingZoo-API.md": re.compile(
+        r"\*\*(Verified Package ([0-9]\.?)*|Release [0-9]+)\*\*"
+    ),
     "docs/Versioning.md": MATCH_ANY,
     "com.unity.ml-agents/CHANGELOG.md": MATCH_ANY,
     "utils/make_readme_table.py": MATCH_ANY,
@@ -186,7 +188,7 @@ def check_file(
                         new_file.write(line)
                     else:
                         bad_lines.append(f"{filename}: {line}")
-                        new_line = re.sub(r"release_[0-9]+", fr"{release_tag}", line)
+                        new_line = re.sub(r"release_[0-9]+", rf"{release_tag}", line)
                         new_line = update_pip_install_line(new_line, package_version)
                         new_file.write(new_line)
         if bad_lines:
@@ -233,7 +235,7 @@ def main():
     print(f"Python package version: {package_version}")
     release_allow_pattern = re.compile(f"{release_tag}(_docs)?")
     pip_allow_pattern = re.compile(
-        fr"python -m pip install (-q )?mlagents(_envs)?=={package_version}"
+        rf"python -m pip install (-q )?mlagents(_envs)?=={package_version}"
     )
     bad_lines = check_all_files(
         release_allow_pattern, release_tag, pip_allow_pattern, package_version

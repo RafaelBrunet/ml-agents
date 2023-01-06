@@ -62,7 +62,7 @@ can interact with it.
 
 ## Interacting with the Environment
 
-If you want to use the [Python API](Python-API.md) to interact with your
+If you want to use the [Python API](Python-LLAPI.md) to interact with your
 executable, you can pass the name of the executable with the argument
 'file_name' of the `UnityEnvironment`. For instance:
 
@@ -194,5 +194,5 @@ graphics display in the Unity executable. There are two ways to achieve this:
 
 If you want to train with graphics (for example, using camera and visual observations), you'll
 need to set up display rendering support (e.g. xvfb) on you server machine. In our
-[Colab Notebook Tutorials](Readme.md#python-tutorial-with-google-colab), the Setup section has
+[Colab Notebook Tutorials](ML-Agents-Toolkit-Documentation.md#python-tutorial-with-google-colab), the Setup section has
 examples of setting up xvfb on servers.

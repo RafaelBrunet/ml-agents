@@ -4,14 +4,12 @@ using Unity.MLAgents.Sensors;
 
 namespace Unity.MLAgents.Tests
 {
-
     [TestFixture]
     public class BufferSensorTest
     {
         [Test]
         public void TestBufferSensor()
         {
-
             var bufferSensor = new BufferSensor(20, 4, "testName");
             var shape = bufferSensor.GetObservationSpec().Shape;
             var dimProp = bufferSensor.GetObservationSpec().DimensionProperties;
@@ -24,7 +22,6 @@ namespace Unity.MLAgents.Tests
 
             bufferSensor.AppendObservation(new float[] { 1, 2, 3, 4 });
             bufferSensor.AppendObservation(new float[] { 5, 6, 7, 8 });
-
             var obsWriter = new ObservationWriter();
             var obs = bufferSensor.GetObservationProto(obsWriter);
 
@@ -36,12 +33,10 @@ namespace Unity.MLAgents.Tests
             for (int i = 0; i < 8; i++)
             {
                 Assert.AreEqual(obs.FloatData.Data[i], i + 1);
-
             }
             for (int i = 8; i < 80; i++)
             {
                 Assert.AreEqual(obs.FloatData.Data[i], 0);
-
             }
         }
 
@@ -75,14 +70,11 @@ namespace Unity.MLAgents.Tests
             for (int i = 0; i < 8; i++)
             {
                 Assert.AreEqual(obs.FloatData.Data[i], i + 1);
-
             }
             for (int i = 8; i < 80; i++)
             {
                 Assert.AreEqual(obs.FloatData.Data[i], 0);
-
             }
         }
-
     }
 }

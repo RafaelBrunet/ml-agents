@@ -22,6 +22,12 @@ namespace Unity.MLAgents.Tests
             Academy.Instance.AutomaticSteppingEnabled = false;
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            CommunicatorFactory.ClearCreator();
+        }
+
         [Test]
         public void TestCtor()
         {

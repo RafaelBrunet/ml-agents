@@ -284,7 +284,7 @@ to the previous one.
 
 ```csharp
 enum ItemType { Sword, Shield, Bow, LastItem }
-const int NUM_ITEM_TYPES = (int)ItemType.LastItem;
+const int NUM_ITEM_TYPES = (int)ItemType.LastItem + 1;
 
 public override void CollectObservations(VectorSensor sensor)
 {
@@ -454,7 +454,7 @@ Agent.
 
 - To collect visual observations, attach `CameraSensor` or `RenderTextureSensor`
   components to the agent GameObject.
-- Visual observations should generally be used unless vector observations are
+- Visual observations should generally only be used when vector observations are
   not sufficient.
 - Image size should be kept as small as possible, without the loss of needed
   details for decision making.
@@ -494,6 +494,12 @@ Both sensor components have several settings:
   `Behavior Parameters`.
 - _Start Vertical Offset_ (3D only) The vertical offset of the ray start point.
 - _End Vertical Offset_ (3D only) The vertical offset of the ray end point.
+- _Alternating Ray Order_ Alternating is the default, it gives an order of (0,
+  -delta, delta, -2*delta, 2*delta, ..., -n*delta, n*delta). If alternating is
+  disabled the order is left to right (-n*delta, -(n-1)*delta, ..., -delta, 0,
+  delta, ..., (n-1)*delta, n*delta). For general usage there is no difference
+  but if using custom models the left-to-right layout that matches the spatial
+  structuring can be preferred (e.g. for processing with conv nets).
 
 In the example image above, the Agent has two `RayPerceptionSensorComponent3D`s.
 Both use 3 Rays Per Direction and 90 Max Ray Degrees. One of the components had
@@ -567,7 +573,7 @@ To allow more variety of observations that grid sensor can capture, the
 `GridSensorComponent` and the underlying `GridSensorBase` also provides interfaces
 that can be overridden to collect customized observation from detected objects.
 See the doc on
-[extending grid Sensors](https://github.com/Unity-Technologies/ml-agents/blob/release_19_docs/com.unity.ml-agents.extensions/Documentation~/CustomGridSensors.md)
+[extending grid Sensors](https://github.com/Unity-Technologies/ml-agents/blob/release_20_docs/com.unity.ml-agents.extensions/Documentation~/CustomGridSensors.md)
 for more details on custom grid sensors.
 
 __Note__: The `GridSensor` only works in 3D environments and will not behave

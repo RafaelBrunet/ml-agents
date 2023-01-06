@@ -1,6 +1,6 @@
 test_editors:
-  - version: 2020.3
-  - version: 2021.2
+  - version: 2021.3
+  - version: 2022.1
 ---
 {% for editor in test_editors %}
 Run_Mac_Perfomance_Tests{{ editor.version }}:
@@ -20,7 +20,7 @@ Run_Mac_Perfomance_Tests{{ editor.version }}:
   triggers:
     cancel_old_ci: true
     recurring:
-      - branch: main
+      - branch: develop
         frequency: daily
   artifacts:
     logs:
